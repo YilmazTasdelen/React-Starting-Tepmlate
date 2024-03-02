@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { reducerActions, } from './Reducers'
 
 export const Reducer = createSlice({
   name: 'counter',
@@ -7,14 +8,7 @@ export const Reducer = createSlice({
     password: ''
 
   },
-  reducers: {
-    
-    setUserNamePassword: (state, action) => {
-        console.log(action.payload.userName +" setting "+ action.payload.password);
-        state.userName = action.payload.userName;
-        state.password = action.payload.password;
-      },
-  },
+  reducers: reducerActions,
 })
 
 // Action creators are generated for each case reducer function
