@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Checkbox, Form, Input, Col, Row, Card, Layout } from "antd";
 import {
   UserOutlined,
   LockOutlined,  
   HeartTwoTone,
 } from "@ant-design/icons";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserNamePassword } from './../Redux/Reducer';
 
 const style = {
   background: '#0092ff',
   padding: '8px 0',
 };
 
-const onFinish = (values) => {
-  console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
-const Login = () => (
+
+const Login = () => {
+  const [userName,setUsername]= useState(undefined);
+  const [password,setPassword]= useState(undefined);
+
+  const dispatch = useDispatch();
+
+  const userNameState = useSelector((state) => state.userName);
+  const passwordState = useSelector((state) => state.password);
+
+  const login = ()=>{
+    console.log("sur pass",userName,password);
+    dispatch(setUserNamePassword({ userName: userName, password: password }));
+  }
+
+  return (  
   <div>
   <Layout style={{ height: "100vh" }}>
     <Row>
@@ -82,7 +92,7 @@ const Login = () => (
                   placeholder="Kullanıcı adı"
                   prefix={<UserOutlined />}
                   //value={username}
-                  //onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </Form.Item>
               <Form.Item
@@ -101,7 +111,7 @@ const Login = () => (
                   placeholder="Şifre"
                   prefix={<LockOutlined />}
                   //value={password}
-                  //onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Form.Item>
                   {/* <Form.Item
@@ -129,6 +139,7 @@ const Login = () => (
                   htmlType="submit"
                   className="loginbutton"
                   textAlign="right"
+                  onClick={()=>{login()}}
                 >
                   Giriş Yap
                 </Button>
@@ -154,5 +165,5 @@ const Login = () => (
 </div>
 
 
-);
+);}
 export default Login;
